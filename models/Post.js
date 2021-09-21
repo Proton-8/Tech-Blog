@@ -1,10 +1,13 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 
-class Project extends Model {}
+class Post extends Model {}
 
-Project.init(
+Post.init(
   {
+
+    //  to confirn info below....
+
     id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -44,4 +47,4 @@ Project.init(
   }
 );
 
-module.exports = Project;
+module.exports = Post;

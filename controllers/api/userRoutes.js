@@ -58,7 +58,7 @@ router.post('/logout', (req, res) => {
   }
 });
 
-// add ogout info here ?????   
+// add more info here ?????   
 
 
 

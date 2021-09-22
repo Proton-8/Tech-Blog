@@ -43,4 +43,4 @@ Blog.init({
   modelName: 'project',
 });
 
-module.exports = Post;
+module.exports = Blog;

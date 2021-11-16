@@ -1,10 +1,10 @@
 const router = require('express').Router();
-const { Project } = require('../../models');
+const { BlogNotes } = require('../../models');
 const withAuth = require('../../utils/auth');
 
 router.post('/', withAuth, async (req, res) => {
   try {
-    const newBlog = await Blog.create({
+    const newBlog = await BlogNotes.create({
       ...req.body,
       user_id: req.session.user_id,
     });
@@ -15,6 +15,18 @@ router.post('/', withAuth, async (req, res) => {
   }
 });
 
+//get all blog comments
+router.get("/", (req, res) => {
+  Comment.findAll({})
+    .then((newBlog) => res.json(newBlog))
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
+});
+
+
+// delete blog comment with specific id
 router.delete('/:id', withAuth, async (req, res) => {
   try {
     const blogData = await Blog.destroy({

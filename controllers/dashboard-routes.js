@@ -8,11 +8,11 @@ router.get("/", withAuth, (req, res) => {
     where: {
       user_id: req.session.user_id,
     },
-    attributes: ["id", "title", "created_at", "post_content"],
+    attributes: ["id", "title", "created_at", "blogContent"],
     include: [
       {
         model: Comment,
-        attributes: ["id", "comment_info", "post_id", "user_id", "created_at"],
+        attributes: ["id", "blogInfo", "blog_id", "user_id", "created_at"],
         include: {
           model: User,
           attributes: "username"
@@ -39,11 +39,11 @@ router.get("/edit/:id", withAuth, (req, res) => {
     where: {
       id: req.params.id,
     },
-    attributes: ["id", "title", "created_at", "post_content"],
+    attributes: ["id", "title", "created_at", "blogContent"],
     include: [
       {
         model: Comment,
-        attributes: ["id", "comment_info", "post_id", "user_id", "created_at"],
+        attributes: ["id", "blogInfo", "post_id", "user_id", "created_at"],
         include: {
           model: User,
           attributes: ["username"],
@@ -55,13 +55,13 @@ router.get("/edit/:id", withAuth, (req, res) => {
       },
     ],
   })
-    .then(dbPostData => {
-      if (!dbPostData) {
+    .then(blogData => {
+      if (!blogData) {
         res.status(404).json({ message: "No blog found" });
         return;
       }
 
-      const post = dbPostData.get({ plain: true });
+      const post = blogData.get({ plain: true });
 
       res.render("edit-blog", {
         post,
@@ -79,11 +79,11 @@ router.get("/create/", withAuth, (req, res) => {
     where: {
       user_id: req.session.user_id,
     },
-    attributes: ["id", "title", "created_at", "post_content"],
+    attributes: ["id", "title", "created_at", "blogContent"],
     include: [
       {
         model: Comment,
-        attributes: ["id", "comment_info", "post_id", "user_id", "created_at"],
+        attributes: ["id", "blogInfo", "post_id", "user_id", "created_at"],
         include: {
           model: User,
           attributes: ["username"],
@@ -95,8 +95,8 @@ router.get("/create/", withAuth, (req, res) => {
       },
     ],
   })
-    .then(dbPostData => {
-      const posts = dbPostData.map((post) => post.get({ plain: true }));
+    .then(blogData => {
+      const posts = blogData.map((post) => post.get({ plain: true }));
       res.render("add-post", { posts, loggedIn: true });
     })
     .catch(err => {

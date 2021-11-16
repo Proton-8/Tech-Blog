@@ -1,3 +1,4 @@
+// cut and paste stuff
 const Sequelize = require('sequelize');
 require('dotenv').config();
 

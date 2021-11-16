@@ -2,7 +2,7 @@ const sequelize = require('../config/connection');
 const { User, Blog, Comment } = require('../models');
 const userData = require('./userData.json');
 const blogData = require('./blogData.json');
-const commentsData = require('./commentData.json');
+const commentsData = require('./commentsData.json');
 
 
 const seedDatabase = async () => {
@@ -11,19 +11,19 @@ const seedDatabase = async () => {
   await Blog.bulkCreate(blogData);
   await Comment.bulkCreate(commentsData);
 
-// TO REVIEW   ______________
- 
-//  const users = await User.bulkCreate(userData, {
-//     individualHooks: true,
-//     returning: true,
-//   });
+  // TO REVIEW   ______________
 
-//   for (const project of projectData) {
-//     await Project.create({
-//       ...project,
-//       user_id: users[Math.floor(Math.random() * users.length)].id,
-//     });
-//   }
+  const users = await User.bulkCreate(userData, {
+    individualHooks: true,
+    returning: true,
+  });
+
+  for (const project of projectData) {
+    await Project.create({
+      ...project,
+      user_id: users[Math.floor(Math.random() * users.length)].id,
+    });
+  }
 
   process.exit(0);
 };

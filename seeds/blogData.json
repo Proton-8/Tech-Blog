@@ -1,11 +1,13 @@
 [
   {
+    "id":"1",
     "blog_name": "Node.JS",
     "blog_text": "I love NODE and NODE.JS!",
     "date_created": "01/22/2022"
 
   },
   {
+    "id":"2",
     "blog_name": "CSS",
     "blog_text": "CSS rules!",
     "date_created": "05/12/2021"

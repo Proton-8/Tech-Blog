@@ -3,23 +3,23 @@ const { Post, User, Comment } = require("../../models");
 const sequelize = require("../../config/connection");
 const withAuth = require("../../utils/auth");
 
-//get all posts
+//get all blogs
 router.get("/", (req, res) => {
   Post.findAll({
-    attributes: ["id", "title", "created_at", "post_content"],
-    order: [["created_at", "DESC"]],
+    attributes: ["id", "blog_name", "blog_text", "date_created"],
+    order: [["date_created", "DESC"]],
     include: [
       {
         model: Comment,
-        attributes: ["id", "comment_text", "post_id", "user_id", "created_at"],
+        attributes: ["id", "commentText", "blog_id", "user_id", "date_created"],
         include: {
           model: User,
-          attributes: ["username"],
+          attributes: ["name"],
         },
       },
       {
         model: User,
-        attributes: ["username"],
+        attributes: ["name"],
       },
     ],
   })
@@ -37,18 +37,18 @@ router.get("/:id", (req, res) => {
     where: {
       id: req.params.id,
     },
-    attributes: ["id", "title", "created_at", "post_content"],
+    attributes: ["id", "blog_name", "date_created", "blog_text"],
     include: [
       {
         model: User,
-        attributes: ["username"],
+        attributes: ["name"],
       },
       {
         model: Comment,
-        attributes: ["id", "comment_text", "post_id", "user_id", "created_at"],
+        attributes: ["id", "commentText", "blog_id", "user_id", "date_created"],
         include: {
           model: User,
-          attributes: ["username"],
+          attributes: ["name"],
         },
       },
     ],
@@ -67,11 +67,11 @@ router.get("/:id", (req, res) => {
     });
 });
 
-//create new post 
+//create new blog
 router.post("/", withAuth, (req, res) => {
   Post.create({
-    title: req.body.title,
-    post_content: req.body.post_content,
+    blog_name: req.body.blog_name,
+    blog_text: req.body.blog_text,
     user_id: req.session.user_id,
   })
     .then((blogData) => res.json(blogData))

@@ -12,7 +12,7 @@ const seedDatabase = async () => {
 		individualHooks: true,
 		returning: true,
 	});
-
+// create a random user to the blog
 	for (const blog of blogData) {
 		await Blog.create({
 			...blog,

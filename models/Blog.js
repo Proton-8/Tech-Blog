@@ -8,25 +8,23 @@ class Blog extends Model {}
 
 Blog.init({
 
-  //  to confirn info below....
-
   id: {
     type: DataTypes.INTEGER,
-    allowNull: false,
     primaryKey: true,
     autoIncrement: true,
+    allowNull: false
   },
-  name: {
+  blog_name: {
     type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: false
   },
-  blogtext: {
+  blog_text: {
     type: DataTypes.STRING,
+    allowNull: false
   },
   date_created: {
     type: DataTypes.DATE,
-    allowNull: false,
-    defaultValue: DataTypes.NOW,
+    defaultValue: DataTypes.NOW
   },
   user_id: {
     type: DataTypes.INTEGER,
@@ -40,7 +38,7 @@ Blog.init({
   timestamps: false,
   freezeTableName: true,
   underscored: true,
-  // modelName: 'project',
+  modelName: 'blog',
 });
 
 module.exports = Blog;

@@ -1,26 +1,26 @@
 const router = require("express").Router();
 const sequelize = require("../config/connection");
-const { Post, User, Comment } = require("../models");
+const { Blog, User, Comment } = require("../models");
 const withAuth = require("../utils/auth");
-
+// set Home Page
 router.get("/", withAuth, (req, res) => {
-  Post.findAll({
+  Blog.findAll({
     where: {
       user_id: req.session.user_id,
     },
-    attributes: ["id", "title", "created_at", "blogContent"],
+    attributes: ["id", "blog_name", "blog_text","date_created" ],
     include: [
       {
         model: Comment,
-        attributes: ["id", "blogInfo", "blog_id", "user_id", "created_at"],
+        attributes: ["id", "commentText", "date_created","blog_id", "user_id" ],
         include: {
           model: User,
-          attributes: "username"
+          attributes: "name"
         },
       },
       {
         model: User,
-        attributes: ["username"],
+        attributes: ["name"],
       },
     ],
   })
@@ -35,23 +35,23 @@ router.get("/", withAuth, (req, res) => {
 });
 
 router.get("/edit/:id", withAuth, (req, res) => {
-  Post.findOne({
+  Blog.findOne({
     where: {
       id: req.params.id,
     },
-    attributes: ["id", "title", "created_at", "blogContent"],
+    attributes: ["id", "blog_name", "blog_text","date_created" ],
     include: [
       {
         model: Comment,
-        attributes: ["id", "blogInfo", "post_id", "user_id", "created_at"],
+        attributes: ["id", "commentText", "date_created","blog_id", "user_id" ],
         include: {
           model: User,
-          attributes: ["username"],
+          attributes: ["name"],
         },
       },
       {
         model: User,
-        attributes: ["username"],
+        attributes: ["name"],
       },
     ],
   })
@@ -75,23 +75,23 @@ router.get("/edit/:id", withAuth, (req, res) => {
 });
 
 router.get("/create/", withAuth, (req, res) => {
-  Post.findAll({
+  Blog.findAll({
     where: {
       user_id: req.session.user_id,
     },
-    attributes: ["id", "title", "created_at", "blogContent"],
+    attributes: ["id", "blog_name", "blog_text","date_created" ],
     include: [
       {
         model: Comment,
-        attributes: ["id", "blogInfo", "post_id", "user_id", "created_at"],
+        attributes: ["id", "commentText", "date_created", "blog_id", "user_id"],
         include: {
           model: User,
-          attributes: ["username"],
+          attributes: ["name"],
         },
       },
       {
         model: User,
-        attributes: ["username"],
+        attributes: ["name"],
       },
     ],
   })

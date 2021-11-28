@@ -1,7 +1,6 @@
 // cut and paste stuff
 const Sequelize = require('sequelize');
 require('dotenv').config();
-
 let sequelize;
 // more cut and paste :-)
 if (process.env.JAWSDB_URL) {
@@ -18,5 +17,4 @@ if (process.env.JAWSDB_URL) {
     }
   );
 }
-
 module.exports = sequelize;

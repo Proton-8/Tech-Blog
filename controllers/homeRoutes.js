@@ -1,7 +1,8 @@
 const router = require('express').Router();
-const { Post, User, Comment } = require('../models');
+const { Blog, User, Comment } = require('../models');
 const withAuth = require('../utils/auth');
 
+// set Home Page
 router.get('/', async (req, res) => {
   try {
     // Get all projects and JOIN with user data
@@ -9,7 +10,7 @@ router.get('/', async (req, res) => {
       include: [
         {
           model: User,
-          attributes: ['name'],
+          attributes: ['blog_name'],
         },
       ],
     });
@@ -27,7 +28,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.get('/post/:id', async (req, res) => {
+router.get('/blog/:id', async (req, res) => {
   try {
     const blogData = await Blog.findByPk(req.params.id, {
       include: [
@@ -78,5 +79,33 @@ router.get('/login', (req, res) => {
 
   res.render('login');
 });
+
+// Logout Page
+router.get('/logout', (req, res) => {
+  console.log("Logging Out");
+  if (req.session.logged_in) {
+    req.session.destroy(() => {
+      res.status(204).redirect("/");
+    });
+  }else{ 
+    res.status(204).redirect("/");
+  }
+});
+
+
+
+
+
+// Signup Page
+router.get('/signup', (req, res) => {
+  // If the user is already logged in, redirect the request to another route
+  if (req.session.logged_in) {
+    res.redirect('/profile');
+    return;
+  }
+
+  res.render('signup');
+});
+
 
 module.exports = router;

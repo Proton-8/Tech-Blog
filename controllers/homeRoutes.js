@@ -5,7 +5,7 @@ const withAuth = require('../utils/auth');
 // set Home Page
 router.get('/', async (req, res) => {
   try {
-    // Get all projects and JOIN with user data
+    // Get all blogs and JOIN with user data
     const blogData = await Blog.findAll({
       include: [
         {

@@ -1,6 +1,6 @@
-const User = require('./User');
-const Comment = require('./Comment');
-const Blog = require('./Blog');
+const User = require('./user');
+const Comment = require('./comment');
+const Blog = require('./blog');
 
 // details  -------
 

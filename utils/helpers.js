@@ -3,17 +3,30 @@ module.exports = {
     // Format date as MM/DD/YYYY
     return date.toLocaleDateString();
   },
-   
-    //    should we keep this ????get_emoji: () => {
-    // const randomNum = Math.random();
+  blog_card: (blog, link) => {
+		// Constructs the HTML to display a blog. A 'link' boolean determines if the blog  can be clicked on to edit/comment.
+		let blogCard = `	<section class='card my-3 mx-auto blog-card'>
+			<h2 class='card-header fw-bold'>${blog.blog_name}</h2>
+			<div class='card-body'>
+				<div class='card-subtitle mb-2 text-muted'>By: ${
+					blog.user.name
+				} on ${blog.date_created.toLocaleDateString()}</div>
+				<div class='card-text fs-5'>${blog.text}</div>
+			</div>`;
 
-    // Return a random emoji
-  //   if (randomNum > 0.7) {
-  //     return `<span for="img" aria-label="lightbulb">💡</span>`;
-  //   } else if (randomNum > 0.4) {
-  //     return `<span for="img" aria-label="laptop">💻</span>`;
-  //   } else {
-  //     return `<span for="img" aria-label="gear">⚙️</span>`;
-  //   }
-  // },
+		if (link) {
+			blogCard += `
+			<a href='/post/${blog.id}' class='stretched-link'></a>`;
+		}
+
+		blogCard += `
+		</section>`;
+		return blogCard;
+	},
+
+
+
+
+
+
 };

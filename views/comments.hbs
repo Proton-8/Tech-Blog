@@ -1,0 +1,32 @@
+{{#if post}}
+    {{{post_card post false}}}
+
+    {{#each post.comments}}
+        {{!-- {{> comment}} --}}
+    {{/each}}
+
+
+        <div class='card my-3 mx-auto comment-card'>
+            <div class='card-header comment-header'></div>
+            <div class='card-body'>
+                <form class='form comment-form' data-id='{{blog.id}}'>
+                    <div class='mb-3'>
+                        <label class='form-label fw-bold' for='comment-text'>Leave a Comment</label>
+                        <textarea
+                            class='form-control'
+                            id='comment-text'
+                            rows='3'
+                        ></textarea>
+                    </div>
+                    <div class='mb-3'>
+                        <button
+                            type='submit'
+                            class='btn btn-secondary'
+                        >Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <script src='../js/comments.js'></script>
+{{/if}}

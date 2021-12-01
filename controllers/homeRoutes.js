@@ -3,32 +3,46 @@ const { Blog, User, Comment } = require('../models');
 const withAuth = require('../utils/auth');
 
 // set Home Page
-router.get('/', async (req, res) => {
-  try {
+// router.get('/', async (req, res) => {
+  // try {
     // Get all blogs and JOIN with user data
-    const blogData = await Blog.findAll({
-      include: [
-        {
-          model: User,
-          attributes: ['name'],
-        },
-      ],
-    });
+    // const blogData = await Blog.findAll({
+    //   include: [
+    //  User
+    //   ],
+    // });
 
     // Serialize data so the template can read it
-    const blogs = blogData.map(blogs => blog.get({ plain: true }));
+    // const blogs = blogData.map(blogs => blog.get({ plain: true }));
 
     // Pass serialized data and session flag into template
-    res.render('homepage', { 
-     blogs, 
-     title: 'BLOG',
-      logged_in: req.session.logged_in 
+//     res.render('homepage', { 
+//      blogs, 
+//      title: 'BLOG',
+//       logged_in: req.session.logged_in 
+//     });
+//   } catch (err) {
+//     res.status(500).json(err);
+//   }
+// });
+router.get('/', async (req, res) => {
+  try {
+    const blogData = await Blog.findAll({
+      include: [User],
     });
+    const blogs = blogData.map((blog) => blog.get({ plain: true }));
+    res.render('homepage', { blogs });
   } catch (err) {
     res.status(500).json(err);
   }
 });
 
+
+
+
+router.get('/main', (req,res)=>{
+  res.render('profile')
+  })
 
 // Render the template for the current logged-in user's dashboard
 router.get('/dashboard', withAuth, async (req, res) => {

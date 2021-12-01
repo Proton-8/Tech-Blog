@@ -1,4 +1,13 @@
-<p>TEST 567</p>
-
-        <h2>Your current blog posts</h2>
-        
+<div class="container">
+{{#each blog as |blog| }}
+<div class="blog">
+    <div class="blog-header">
+        <h2>{{blog.blog_name}}</h2>
+        <p>posted by {{blog.user.name}} on {{format_date blog.date_created}}</p>
+    </div>
+    <div class="blog-content">
+        <p>{{blog.blog_text}}</p>
+    </div>
+</div>
+{{/each}}
+</div>

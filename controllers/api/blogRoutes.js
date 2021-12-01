@@ -1,10 +1,12 @@
 const router = require('express').Router();
-const { BlogNotes } = require('../../models');
+const { Blog, Comment } = require('../../models');
 const withAuth = require('../../utils/auth');
 
+
+// Create a new blog
 router.post('/', withAuth, async (req, res) => {
   try {
-    const newBlog = await BlogNotes.create({
+    const newBlog = await Blog.create({
       ...req.body,
       user_id: req.session.user_id,
     });
@@ -15,16 +17,15 @@ router.post('/', withAuth, async (req, res) => {
   }
 });
 
-//get all blog comments
-router.get("/", (req, res) => {
-  Comment.findAll({})
-    .then((newBlog) => res.json(newBlog))
-    .catch((err) => {
-      console.log(err);
-      res.status(500).json(err);
-    });
+// Update an existing blog
+router.put('/:id', withAuth, async ({ params, body }, res) => {
+  try {
+    const blogData = await Blog.update(body, { where: { id: params.id } });
+    res.status(200).json(blogData);
+  } catch (err) { 
+    res.status(500).json(err);
+  }
 });
-
 
 // delete blog comment with specific id
 router.delete('/:id', withAuth, async (req, res) => {
@@ -40,8 +41,7 @@ router.delete('/:id', withAuth, async (req, res) => {
       res.status(404).json({ message: 'Sorry, no blog found with this id!' });
       return;
     }
-
-    res.status(200).json(blogKill);
+    res.status(200).json(blogKill, {message: 'Blog deleted'});
   } catch (err) {
     res.status(500).json(err);
   }

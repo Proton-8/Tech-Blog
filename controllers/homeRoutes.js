@@ -16,11 +16,12 @@ router.get('/', async (req, res) => {
     });
 
     // Serialize data so the template can read it
-    const blogs = blogData.map((blogs) => blog.get({ plain: true }));
+    const blogs = blogData.map(blogs => blog.get({ plain: true }));
 
     // Pass serialized data and session flag into template
     res.render('homepage', { 
      blogs, 
+     title: 'BLOG',
       logged_in: req.session.logged_in 
     });
   } catch (err) {
@@ -28,7 +29,30 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.get('/blog/:id', async (req, res) => {
+
+// Render the template for the current logged-in user's dashboard
+router.get('/dashboard', withAuth, async (req, res) => {
+	try {
+		// Find the logged in user based on the session's user_id
+		const userData = await User.findByPk(req.session.user_id, {
+			attributes: { exclude: ['password'] },
+			include: [{ model: Blog }],
+		});
+		const user = userData.get({ plain: true });
+
+		res.render('userdashboard', {
+			...user,
+			title: 'Personal Dashboard',
+			logged_in: true,
+		});
+	} catch (err) {
+		res.status(500).json(err);
+	}
+});
+
+
+
+router.get('/blog/:id', withAuth, async (req, res) => {
   try {
     const blogData = await Blog.findByPk(req.params.id, {
       include: [
@@ -36,12 +60,21 @@ router.get('/blog/:id', async (req, res) => {
           model: User,
           attributes: ['name'],
         },
+        {
+					model: Comment,
+					include: [
+						{
+							model: User,
+							attributes: ['name'],
+						},
+					],
+				},
       ],
     });
 
     const blogs = blogData.get({ plain: true });
 
-    res.render('blogDetails', {
+    res.render('comments', {
       ...blog,
       logged_in: req.session.logged_in
     });
@@ -51,34 +84,44 @@ router.get('/blog/:id', async (req, res) => {
 });
 
 // Use withAuth middleware to prevent access to route
-router.get('/profile', withAuth, async (req, res) => {
-  try {
-    // Find the logged in user based on the session ID
-    const userData = await User.findByPk(req.session.user_id, {
-      attributes: { exclude: ['password'] },
-      include: [{ model: Post }],
-    });
+// router.get('/profile', withAuth, async (req, res) => {
+//   try {
+//     // Find the logged in user based on the session ID
+//     const userData = await User.findByPk(req.session.user_id, {
+//       attributes: { exclude: ['password'] },
+//       include: [{ model: Post }],
+//     });
 
-    const user = userData.get({ plain: true });
+//     const user = userData.get({ plain: true });
 
-    res.render('profile', {
-      ...user,
-      logged_in: true
-    });
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
+//     res.render('profile', {
+//       ...user,
+//       logged_in: true
+//     });
+//   } catch (err) {
+//     res.status(500).json(err);
+//   }
+// });
 
 router.get('/login', (req, res) => {
   // If the user is already logged in, redirect the request to another route
   if (req.session.logged_in) {
-    res.redirect('/profile');
+    res.redirect('/dashboard');
     return;
   }
 
   res.render('login');
+
 });
+
+// Render the template for creating a new post
+router.get('/blog', (req, res) => {
+	res.render('blog', {
+		title: 'Personal Dashboard',
+		logged_in: req.session.logged_in,
+	});
+});
+
 
 // Logout Page
 router.get('/logout', (req, res) => {

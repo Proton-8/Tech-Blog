@@ -11,7 +11,7 @@ const formSubmitHandler = async event => {
 			const id = event.target.getAttribute('data-id');
 
 			// Update the blog post title and content
-			const response = await fetch(`/api/posts/${id}`, {
+			const response = await fetch(`/api/blogs/${id}`, {
 				method: 'PUT',
 				body: JSON.stringify({ title, content }),
 				headers: {
@@ -23,13 +23,13 @@ const formSubmitHandler = async event => {
 				// Redirect back to the user's dashboard to see the updated blog post
 				document.location.replace('/dashboard');
 			} else {
-				alert('Failed to update blog post');
+				alert('Failed to update blog');
 			}
 		} else {
 			// Create a new blog post
-			const response = await fetch(`/api/posts`, {
+			const response = await fetch(`/api/blogs`, {
 				method: 'POST',
-				body: JSON.stringify({ title, content }),
+				body: JSON.stringify({ blog_name, blog_text }),
 				headers: {
 					'Content-Type': 'application/json',
 				},
@@ -38,16 +38,16 @@ const formSubmitHandler = async event => {
 				// Redirect back to the user's dashboard to see the new blog post
 				document.location.replace('/dashboard');
 			} else {
-				alert('Failed to create blog post');
+				alert('Failed to create blog');
 			}
 		}
 	}
 };
 
 async function deletePost() {
-	const id = document.querySelector('#delete-post').getAttribute('data-id');
+	const id = document.querySelector('#delete-blog').getAttribute('data-id');
 	// Delete the target blog post
-	const response = await fetch(`/api/posts/${id}`, {
+	const response = await fetch(`/api/blogs/${id}`, {
 		method: 'DELETE',
 	});
 

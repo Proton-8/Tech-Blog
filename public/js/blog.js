@@ -1,8 +1,8 @@
 const formSubmitHandler = async event => {
 	event.preventDefault();
 
-	const title = document.querySelector('#post-title').value.trim();
-	const content = document.querySelector('#post-content').value.trim();
+	const title = document.querySelector('#blog_name').value.trim();
+	const content = document.querySelector('#blog_text').value.trim();
 
 	// Make sure we have title and content
 	if (title && content) {
@@ -27,7 +27,7 @@ const formSubmitHandler = async event => {
 			}
 		} else {
 			// Create a new blog post
-			const response = await fetch(`/api/blogs`, {
+			const response = await fetch(`/api/blogRoutes`, {
 				method: 'POST',
 				body: JSON.stringify({ blog_name, blog_text }),
 				headers: {

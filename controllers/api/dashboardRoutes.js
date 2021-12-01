@@ -92,8 +92,8 @@ router.get("/create/", withAuth, (req, res) => {
     ],
   })
     .then(blogData => {
-      const posts = blogData.map((post) => post.get({ plain: true }));
-      res.render("add-post", { posts, loggedIn: true });
+      const posts = blogData.map((blog) => blog.get({ plain: true }));
+      res.render("add-blog", { blogs, loggedIn: true });
     })
     .catch(err => {
       console.log(err);

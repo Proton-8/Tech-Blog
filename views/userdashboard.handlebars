@@ -1,4 +1,4 @@
-<div class="container">
+{{!-- <div class="container">
     <div class="row">
         <h2>Your current blog posts</h2>
     </div>
@@ -10,4 +10,20 @@
         {{/each}}
     {{/if}}
     <script src="./js/dashboard.js"></script>
+</div> --}}
+<div class="container">
+ <p></p>
+	<div class="col text-center">
+		<button class='btn btn-secondary' id='new-blog'>Add a New Blog</button>
+	</div>
 </div>
+
+{{#if blogs.length}}
+	<section id='blog-list'>
+		{{#each blogs}}
+			{{> blogdetails}}
+		{{/each}}
+	</section>
+{{/if}}
+
+<script src='./js/dashboard.js'></script>

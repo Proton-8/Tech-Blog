@@ -40,7 +40,7 @@ router.get('/', async (req, res) => {
 
 
 
-router.get('/main', (req,res)=>{
+router.get('/profile', (req,res)=>{
   res.render('profile')
   })
 

@@ -69,7 +69,8 @@ pre {
  * Remove the gray background on active links in IE 10.
  */
 a {
-  background-color: transparent;
+  background-color:rgb(248, 214, 101);
+   padding: 10px;
 }
 
 /**
@@ -159,7 +160,7 @@ textarea {
   /* 1 */
   line-height: 1.15;
   /* 1 */
-  margin: 0;
+  margin: 1;
   /* 2 */
 }
 

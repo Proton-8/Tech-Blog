@@ -11,10 +11,10 @@
 
 <body>
   <div class="flex-column justify-space-around">
-    <header class="display-flex justify-space-between align-center p-2">
+    <header class="display-flex justify-space-between align-center p-3">
       <h1>
-        <span role="img" aria-label="money">💸</span>
-        <a href="/">Comment on a BLOG!</a>
+        {{!-- <span role="img" aria-label="money">💸</span> --}}
+        <a href="/">Welcome to the TECH BLOG!</a>
       </h1>
       <nav>
         <!-- Conditionally render login or logout links -->
@@ -26,7 +26,7 @@
         {{/if}}
       </nav>
     </header>
-    <main class="container container-fluid mt-5">
+    <main class="container container-fluid mt-15">
       <!-- Render the sub layout -->
       {{{ body }}}
     </main>

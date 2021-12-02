@@ -59,10 +59,22 @@ GIVEN a CMS-style blog site
 
 * ![NPM](https://img.shields.io/badge/NPM-%23000000.svg?style=for-the-badge&logo=npm&logoColor=white)
 
+* `Deployed with Heroku` 
+
+  * ![Heroku](https://img.shields.io/badge/heroku-%23430098.svg?style=for-the-badge&logo=heroku&logoColor=white)
+
+<br>
+
+## Deployed website: <a href=" https://frozen-refuge-86404.herokuapp.com/"> Tech Blog</a>
+<br>
+
+
+
+
  ## Demo screen shots:
 <br>
 <p>
-<img src="./public/blog-demo.gif" alt="Start Page demo">
+<img src="./public/blog-demo.gif" alt="BLOG Page demo">
 
 </p>
 

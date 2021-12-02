@@ -4,7 +4,7 @@ const session = require('express-session');
 const exphbs = require('express-handlebars');
 const routes = require('./controllers');
 const helpers = require('./utils/helpers');
-// sequelize stuff
+
 const sequelize = require('./config/connection');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
@@ -16,11 +16,8 @@ const hbs = exphbs.create({ helpers });
 
 const sess = {
   secret: 'Super secret secret',
-  //set to expire in one day 
-  cookie: {
-    expires: 86400000
-  },
-  resave: true,
+  cookie: {},
+  resave: false,
   saveUninitialized: true,
   store: new SequelizeStore({
     db: sequelize
@@ -40,6 +37,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(routes);
 
 sequelize.sync({ force: false }).then(() => {
-  // let me know where it is running
-  app.listen(PORT, () => console.log(`Now listening on: http://localhost:${PORT}`));
+  app.listen(PORT, () =>
+    console.log(`Listening on: http://localhost:${PORT} 🚀`));
 });

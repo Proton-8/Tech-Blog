@@ -1,15 +1,17 @@
 [
   {
-    "id":"1",
-    "blog_name": "Node.JS",
-    "blog_text": "I love NODE and NODE.JS!",
-    "date_created": "01/22/2022"
-
+    "name": "Music Near Me",
+    "description": "A mobile app that will send you notifications whenever a concert is playing in your area.",
+    "needed_funding": 5000
   },
   {
-    "id":"2",
-    "blog_name": "CSS",
-    "blog_text": "CSS rules!",
-    "date_created": "05/12/2021"
-  }]
-  
+    "name": "The Ultimate Tech Quiz",
+    "description": "A web app that will give users 10 new technical questions each day and track their progress in things like programming, cybersecurity, database architecture, and more!",
+    "needed_funding": 10000
+  },
+  {
+    "name": "Roll 'Em Up",
+    "description": "A game for Windows and macOS where players move a ball through a series of increasingly challenging mazes.",
+    "needed_funding": 800
+  }
+]

@@ -74,7 +74,7 @@ GIVEN a CMS-style blog site
  ## Demo screen shots:
 <br>
 <p>
-<img src="./public/blog-demo.gif" alt="BLOG Page demo">
+<img src="./public/Blog-Demo1.gif" alt="BLOG Page demo">
 
 </p>
 

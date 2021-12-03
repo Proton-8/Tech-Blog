@@ -14,18 +14,18 @@
     <header class="display-flex justify-space-between align-center p-2">
       <a></a> 
       <h1>
-        <span for="img" aria-label="laptop">💻</span>
-
-       
-        <a href="/">WELCOME to the BLOG!</a>
+        <span for="img" aria-label="laptop">💻    
+        <a >WELCOME to the BLOG!</a></span>
         <h5>Click on a blog to comment.</h5>
       </h1>
       <nav>
         <!-- Conditionally render login or logout links -->
         {{#if logged_in}}
-        <a href="/profile">profile</a> |
+         <a href="/">HOME</a> 
+        <a href="/profile">Dashboard</a> |
         <button class="no-button" id="logout">logout</button>
         {{else}}
+        <a href="/">HOME</a> 
         <a href="/login">login</a>
         {{/if}}
       </nav>
